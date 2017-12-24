@@ -2,7 +2,6 @@ const chai = require('chai');
 const expect = chai.expect;
 const queries = require('../database/queries');
 
-
 describe("Scrapper", () => {
     it('should get all tractors', (done) => {
         queries.getEquipmentsByType("tractors")

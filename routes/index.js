@@ -1,6 +1,6 @@
 const Router = require('koa-router');
 const router = new Router({
-  prefix: 'equipments'
+  prefix: '/equipments'
 });
 const queries = require('../database/queries');
 const TRACTORS_TYPE = "tractors";
@@ -14,18 +14,18 @@ router.get('/', async (ctx) => {
 
 router
       .get(`${TRACTORS_URL}`, async (ctx) => {
-          ctx.equipments = await queries.getEquipmentsByType(TRACTORS_TYPE);             
+          ctx.body = await queries.getEquipmentsByType(TRACTORS_TYPE);             
       })
       .get(`${TRACTORS_URL}/:equipmentId`, async (ctx) => {
-          ctx.equipments = await queries.getEquipmentById(ctx.params.equipmentId);    
+          ctx.body = await queries.getEquipmentById(ctx.params.equipmentId);    
       });
 
 router
       .get(`${PLANT_EQUIPMENTS_URL}`, async (ctx) => {
-          ctx.equipments = await queries.getEquipmentsByType(PLANT_EQUIPMENTS_TYPE);             
+          ctx.body = await queries.getEquipmentsByType(PLANT_EQUIPMENTS_TYPE);             
       })
       .get(`${PLANT_EQUIPMENTS_URL}/:equipmentId`, async (ctx) => {
-          ctx.equipments = await queries.getEquipmentById(ctx.params.equipmentId);   
+          ctx.body = await queries.getEquipmentById(ctx.params.equipmentId);   
           //TODO: error handling         
       });
 
