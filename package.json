@@ -1,0 +1,32 @@
+{
+  "name": "obsidian-api",
+  "version": "1.0.0",
+  "description": "API for the Obsidian Project Demo",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "koa": "^2.4.1",
+    "koa-body": "^2.5.0",
+    "koa-cors": "0.0.16",
+    "koa-logger": "^3.1.0",
+    "koa-router": "^7.3.0",
+    "mongoose": "^4.13.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Obsidian-Project/obsidian-api.git"
+  },
+  "author": "edson alcala",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Obsidian-Project/obsidian-api/issues"
+  },
+  "homepage": "https://github.com/Obsidian-Project/obsidian-api#readme"
+}
