@@ -1,5 +1,10 @@
 //TODO: just to share between clients and get data from remix
 
-export const MICROFINANCE_CONTRACT_ABI = [];
+const ABI = [1,2,3];
+const ADDRESS = "test";
 
-export const MICROFINANCE_CONTRACT_ADDRESS = "";
+let SmartContractInfo = {    
+    ABI,
+    ADDRESS
+}
+module.exports = SmartContractInfo;

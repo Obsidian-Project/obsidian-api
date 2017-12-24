@@ -1,32 +1,19 @@
 const Router = require('koa-router');
-const router = new Router({
-  prefix: '/equipments'
-});
-const queries = require('../database/queries');
-const TRACTORS_TYPE = "tractors";
-const PLANT_EQUIPMENTS_TYPE = "planting-equipments";
-const TRACTORS_URL = `/${TRACTORS_TYPE}`;
-const PLANT_EQUIPMENTS_URL = `/${PLANT_EQUIPMENTS_TYPE}`;
+const router = new Router();
+
+const SMART_CONTRACT_ABI = require('../utils/smartcontract').ABI;
+const SMART_CONTRACT_ADDRESS = require('../utils/smartcontract').ADDRESS;
 
 router.get('/', async (ctx) => {
   ctx.body = 'API Working!';
 })
 
-router
-      .get(`${TRACTORS_URL}`, async (ctx) => {
-          ctx.body = await queries.getEquipmentsByType(TRACTORS_TYPE);             
-      })
-      .get(`${TRACTORS_URL}/:equipmentId`, async (ctx) => {
-          ctx.body = await queries.getEquipmentById(ctx.params.equipmentId);    
-      });
+router.get('/smartcontract', ctx => {
+    ctx.body = {
+        abi: SMART_CONTRACT_ABI,
+        address: SMART_CONTRACT_ADDRESS
+    };
+})
 
-router
-      .get(`${PLANT_EQUIPMENTS_URL}`, async (ctx) => {
-          ctx.body = await queries.getEquipmentsByType(PLANT_EQUIPMENTS_TYPE);             
-      })
-      .get(`${PLANT_EQUIPMENTS_URL}/:equipmentId`, async (ctx) => {
-          ctx.body = await queries.getEquipmentById(ctx.params.equipmentId);   
-          //TODO: error handling         
-      });
 
 module.exports = router;
