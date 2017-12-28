@@ -5,21 +5,11 @@ const SMART_CONTRACT_ABI = require('../utils/smartcontract').ABI;
 const SMART_CONTRACT_ADDRESS = require('../utils/smartcontract').ADDRESS;
 
 const Readable = require('stream').Readable
-const ipfsAPI = require('ipfs-api')
-
-const azure = require('azure');
- const notificationHubService = azure.createNotificationHubService('obsidian-hub', 'Endpoint=sb://obsidian.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=XIia7HhtL0aVnnseg4HJW7abu+aROecKWb+nej2hnrc=');
-
-// connect to ipfs daemon API server
-// connect to ipfs daemon API server
-//const ipfs = ipfsAPI('https://ipfs.infura.io ', '5001', {protocol: 'http'}) // leaving out the arguments will default to these values
-//const ipfs = ipfsAPI('https://ipfs.infura.io', '5001', {protocol: 'http'}) // leaving out the arguments will default to these values
-// const IPFS = require('ipfs-mini');
-
-// const ipfs = new IPFS({host: 'https://ipfs.infura.io', port: 5001, protocol: 'http'});
-
 const IPFS = require('ipfs-mini');
 const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+
+const azure = require('azure');
+const notificationHubService = azure.createNotificationHubService('obsidian-hub', 'Endpoint=sb://obsidian.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=XIia7HhtL0aVnnseg4HJW7abu+aROecKWb+nej2hnrc=');
 
 router.get('/', async (ctx) => {
   ctx.body = 'API Working!';
@@ -55,7 +45,7 @@ const addStreamToIPFS = (stream) => {
 
 const addJsonToIPFS = (json) => {
     return new Promise((resolve, reject) => {               
-        ipfs.addJSON('hello world!', (err, result) => {
+        ipfs.addJSON(json, (err, result) => {
             if(err){                
                 reject(err);
                 return;
@@ -78,16 +68,9 @@ const convertJsonToStream = (json) => {
     return jsonStream;   
 }
 
-  // result null 'QmTp2hEo8eXRp6wg7jXv1BLCMh5a4F3B7buAUZNZUu772j'
-  
-//   ipfs.catJSON('QmTp2hEo8eXRp6wg7jXv1BLCMh5a4F3B7buAUZNZUu772j', (err, result) => {
-//     console.log(err, result);
-//   });
-
-
 const getJsonFromIPFS = (hash) => {
     return new Promise((resolve, reject) => {                   
-        ipfs.cat(hash, (err, result) => {
+        ipfs.catJSON(hash, (err, result) => {
             if (err) {
               reject(err);
               return;
