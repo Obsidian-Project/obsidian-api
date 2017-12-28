@@ -7,7 +7,9 @@
     "test": "test"
   },
   "dependencies": {
+    "azure": "^2.2.1-preview",
     "ipfs-api": "^17.2.6",
+    "ipfs-mini": "^1.1.2",
     "koa": "^2.4.1",
     "koa-body": "^2.5.0",
     "koa-cors": "0.0.16",
