@@ -25,6 +25,22 @@ const EquipmentSchema = new mongoose.Schema({
   images: {
     type: Array,
     required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  mainFeature: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  imageUrl: {
+    type: String,
+    required: true,
   }
 });
 

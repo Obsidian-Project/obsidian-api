@@ -7,6 +7,7 @@
     "test": "test"
   },
   "dependencies": {
+    "ipfs-api": "^17.2.6",
     "koa": "^2.4.1",
     "koa-body": "^2.5.0",
     "koa-cors": "0.0.16",
