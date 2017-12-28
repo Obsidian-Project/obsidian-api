@@ -31,6 +31,27 @@ router.get('/program/:hash', async (ctx) => {
     ctx.body = await getJsonFromIPFS(ctx.params.hash);
 })
 
+router.get('/notify', function (req, res) {
+    //send notification test
+    var payload = {
+      alert: 'Edson wants to turn on the Light.'
+      //what can I send?
+    };
+
+    // data: {
+    //     message: 'Hello!'
+    //   }
+
+    notificationHubService.apns.send(null, payload, function (error) {
+      if (!error) {
+        res.sendStatus(200);
+      } else {
+        res.sendStatus(500);
+      }
+    });
+  });
+
+  
 const addStreamToIPFS = (stream) => {
     return new Promise((resolve, reject) => {                   
         ipfs.util.addFromStream(stream, (err, result) => {
@@ -56,10 +77,6 @@ const addJsonToIPFS = (json) => {
 
 }
 
-ipfs.addJSON({ somevalue: 2, name: 'Nick' }, (err, result) => {
-    console.log(err, result);
-  });
-  
 const convertJsonToStream = (json) => {
     let jsonString = JSON.stringify(json);   
     let jsonStream = new Readable();
