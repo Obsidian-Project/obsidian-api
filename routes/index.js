@@ -144,6 +144,7 @@ const getJsonFromIPFSBy = (programInfo) => {
                 return;
             }
             result.programId = programInfo.id;
+            result.ipfsHash = programInfo.ipfsHash;
             resolve(result);
         });
     });
