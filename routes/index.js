@@ -78,11 +78,12 @@ const getProgramsInfo = () => {
                 let programsInfo = [];
                 for (let i = 1; i <= numberOfPrograms; i++) {
                     ObsidianSmartContract.programInfo(i, (error, result) => {
-                        
-                        programsInfo.push({
-                            id: i,
-                            ipfsHash: result[1]
-                        });
+                        if(result[1].length > 10){ //TODO: hot fix for trash data inserted for testing events
+                            programsInfo.push({
+                                id: i,
+                                ipfsHash: result[1]
+                            });
+                        }
                         if (i == numberOfPrograms) {
                             resolve(programsInfo);
                         }
