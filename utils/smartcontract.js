@@ -3,26 +3,17 @@
 const ABI = [
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "numberOfMembers",
-		"outputs": [
+		"inputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "address"
 			}
 		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "numberOfGroups",
+		"name": "members",
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -38,6 +29,39 @@ const ABI = [
 			}
 		],
 		"name": "balances",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "ipfsHash",
+				"type": "string"
+			}
+		],
+		"name": "addProgram",
+		"outputs": [
+			{
+				"name": "result",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "numberOfPrograms",
 		"outputs": [
 			{
 				"name": "",
@@ -67,37 +91,10 @@ const ABI = [
 		"inputs": [
 			{
 				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "membersInfo",
-		"outputs": [
-			{
-				"name": "latitude",
-				"type": "string"
-			},
-			{
-				"name": "longitude",
-				"type": "string"
-			},
-			{
-				"name": "sizeOfLand",
 				"type": "uint256"
 			}
 		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "members",
+		"name": "programs",
 		"outputs": [
 			{
 				"name": "",
@@ -134,10 +131,101 @@ const ABI = [
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [],
+		"name": "numberOfMembers",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "memberInfo",
+		"outputs": [
+			{
+				"name": "latitude",
+				"type": "string"
+			},
+			{
+				"name": "longitude",
+				"type": "string"
+			},
+			{
+				"name": "sizeOfLand",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "newGroupMembers",
+				"type": "address[]"
+			}
+		],
+		"name": "registerGroup",
+		"outputs": [
+			{
+				"name": "result",
+				"type": "bool"
+			}
+		],
 		"payable": false,
 		"stateMutability": "nonpayable",
-		"type": "constructor"
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "numberOfGroups",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "programInfo",
+		"outputs": [
+			{
+				"name": "delivered",
+				"type": "bool"
+			},
+			{
+				"name": "ipfsHash",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"constant": false,
@@ -171,23 +259,10 @@ const ABI = [
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "newGroupMembers",
-				"type": "address[]"
-			}
-		],
-		"name": "registerGroup",
-		"outputs": [
-			{
-				"name": "result",
-				"type": "bool"
-			}
-		],
+		"inputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
-		"type": "function"
+		"type": "constructor"
 	},
 	{
 		"anonymous": false,
@@ -205,10 +280,27 @@ const ABI = [
 		],
 		"name": "newMemberAdded",
 		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "programId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "ipfsHash",
+				"type": "string"
+			}
+		],
+		"name": "newProgramAdded",
+		"type": "event"
 	}
 ];
 
-const ADDRESS = "0x041c46c4f1f17282a1e92391ad614e6de17118e9";
+const ADDRESS = "0x3ae6f17ba7c810707e003f7eb2fd389da57f8dd5";
 
 let SmartContractInfo = {    
     ABI,
