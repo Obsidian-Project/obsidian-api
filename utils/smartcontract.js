@@ -5,86 +5,43 @@ const ABI = [
 		"constant": true,
 		"inputs": [
 			{
-				"name": "element",
-				"type": "uint256"
-			}
-		],
-		"name": "getGroupInfo",
-		"outputs": [
-			{
-				"components": [
-					{
-						"name": "members",
-						"type": "address[]"
-					}
-				],
-				"name": "groupInformation",
-				"type": "tuple"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "owner",
-		"outputs": [
-			{
 				"name": "",
 				"type": "address"
 			}
 		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "numberOfPrograms",
+		"name": "members",
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "numberOfMembers",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "programInfo",
-		"outputs": [
-			{
-				"name": "delivered",
 				"type": "bool"
-			},
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "numberOfRequest",
+		"outputs": [
 			{
-				"name": "ipfsHash",
-				"type": "string"
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "numberOfProgramsDelivered",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"payable": false,
@@ -111,6 +68,72 @@ const ABI = [
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "ipfsHash",
+				"type": "string"
+			}
+		],
+		"name": "addProgram",
+		"outputs": [
+			{
+				"name": "result",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "numberOfPrograms",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "requestInfo",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [
 			{
@@ -130,18 +153,61 @@ const ABI = [
 		"type": "function"
 	},
 	{
-		"constant": true,
+		"constant": false,
 		"inputs": [
 			{
-				"name": "",
+				"name": "programId",
+				"type": "uint256"
+			},
+			{
+				"name": "requester",
 				"type": "address"
 			}
 		],
-		"name": "members",
+		"name": "requestEquipment",
+		"outputs": [
+			{
+				"name": "result",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "element",
+				"type": "uint256"
+			}
+		],
+		"name": "getGroupInfo",
+		"outputs": [
+			{
+				"components": [
+					{
+						"name": "members",
+						"type": "address[]"
+					}
+				],
+				"name": "groupInformation",
+				"type": "tuple"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "numberOfMembers",
 		"outputs": [
 			{
 				"name": "",
-				"type": "bool"
+				"type": "uint256"
 			}
 		],
 		"payable": false,
@@ -176,6 +242,25 @@ const ABI = [
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "newGroupMembers",
+				"type": "address[]"
+			}
+		],
+		"name": "registerGroup",
+		"outputs": [
+			{
+				"name": "result",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [],
 		"name": "numberOfGroups",
@@ -190,21 +275,27 @@ const ABI = [
 		"type": "function"
 	},
 	{
-		"anonymous": false,
+		"constant": true,
 		"inputs": [
 			{
-				"indexed": false,
-				"name": "memberAdress",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "isRegistered",
-				"type": "bool"
+				"name": "",
+				"type": "uint256"
 			}
 		],
-		"name": "newMemberAdded",
-		"type": "event"
+		"name": "programInfo",
+		"outputs": [
+			{
+				"name": "delivered",
+				"type": "bool"
+			},
+			{
+				"name": "ipfsHash",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"constant": false,
@@ -238,42 +329,27 @@ const ABI = [
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "newGroupMembers",
-				"type": "address[]"
-			}
-		],
-		"name": "registerGroup",
-		"outputs": [
-			{
-				"name": "result",
-				"type": "bool"
-			}
-		],
+		"inputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
-		"type": "function"
+		"type": "constructor"
 	},
 	{
-		"constant": false,
+		"anonymous": false,
 		"inputs": [
 			{
-				"name": "ipfsHash",
-				"type": "string"
-			}
-		],
-		"name": "addProgram",
-		"outputs": [
+				"indexed": false,
+				"name": "memberAdress",
+				"type": "address"
+			},
 			{
-				"name": "result",
+				"indexed": false,
+				"name": "isRegistered",
 				"type": "bool"
 			}
 		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"name": "newMemberAdded",
+		"type": "event"
 	},
 	{
 		"anonymous": false,
@@ -293,14 +369,25 @@ const ABI = [
 		"type": "event"
 	},
 	{
-		"inputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "programId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "beneficiary",
+				"type": "address"
+			}
+		],
+		"name": "newEquipmentRequested",
+		"type": "event"
 	}
 ];
 
-const ADDRESS = "0x3ae6f17ba7c810707e003f7eb2fd389da57f8dd5";
+const ADDRESS = "0x6a8aa507ac3fce6cdf9f760df1d480b53e7e31c6";
 
 let SmartContractInfo = {    
     ABI,
