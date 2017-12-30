@@ -1,31 +1,17 @@
 const ABI = [
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "numberOfGroups",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
 		"inputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "address"
 			}
 		],
-		"name": "programs",
+		"name": "membersGroup",
 		"outputs": [
 			{
 				"name": "",
-				"type": "bool"
+				"type": "uint256"
 			}
 		],
 		"payable": false,
@@ -49,6 +35,22 @@ const ABI = [
 			{
 				"name": "ipfsHash",
 				"type": "string"
+			},
+			{
+				"name": "costPerUnit",
+				"type": "uint256"
+			},
+			{
+				"name": "subsidyAmount",
+				"type": "uint256"
+			},
+			{
+				"name": "units",
+				"type": "uint256"
+			},
+			{
+				"name": "creator",
+				"type": "address"
 			}
 		],
 		"payable": false,
@@ -85,13 +87,8 @@ const ABI = [
 	},
 	{
 		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "balances",
+		"inputs": [],
+		"name": "numberOfProgramsDelivered",
 		"outputs": [
 			{
 				"name": "",
@@ -104,12 +101,17 @@ const ABI = [
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "numberOfPrograms",
-		"outputs": [
+		"inputs": [
 			{
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"name": "programs",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -120,6 +122,20 @@ const ABI = [
 		"constant": true,
 		"inputs": [],
 		"name": "numberOfMembers",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "numberOfGroups",
 		"outputs": [
 			{
 				"name": "",
@@ -203,8 +219,13 @@ const ABI = [
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "balance",
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "balances",
 		"outputs": [
 			{
 				"name": "",
@@ -237,7 +258,7 @@ const ABI = [
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "numberOfProgramsDelivered",
+		"name": "balance",
 		"outputs": [
 			{
 				"name": "",
@@ -247,6 +268,52 @@ const ABI = [
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "numberOfPrograms",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "programId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "ipfsHash",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "costPerUnit",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "subsidyAmount",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "units",
+				"type": "uint256"
+			}
+		],
+		"name": "newProgramAdded",
+		"type": "event"
 	},
 	{
 		"constant": false,
@@ -283,8 +350,8 @@ const ABI = [
 		"constant": false,
 		"inputs": [
 			{
-				"name": "recipient",
-				"type": "address"
+				"name": "programId",
+				"type": "uint256"
 			}
 		],
 		"name": "transfer",
@@ -304,6 +371,18 @@ const ABI = [
 			{
 				"name": "ipfsHash",
 				"type": "string"
+			},
+			{
+				"name": "costPerUnit",
+				"type": "uint256"
+			},
+			{
+				"name": "subsidyAmount",
+				"type": "uint256"
+			},
+			{
+				"name": "units",
+				"type": "uint256"
 			}
 		],
 		"name": "addProgram",
@@ -364,23 +443,6 @@ const ABI = [
 		"inputs": [
 			{
 				"indexed": false,
-				"name": "programId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "ipfsHash",
-				"type": "string"
-			}
-		],
-		"name": "newProgramAdded",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
 				"name": "memberAdress",
 				"type": "address"
 			},
@@ -391,6 +453,23 @@ const ABI = [
 			}
 		],
 		"name": "newMemberAdded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "recipient",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "equipmentId",
+				"type": "uint256"
+			}
+		],
+		"name": "newEquipmentTransferred",
 		"type": "event"
 	},
 	{
@@ -418,7 +497,7 @@ const ABI = [
 	}
 ];
 
-const ADDRESS = "0xa502246807e6f2758874acc8729873db3d5ce74d";
+const ADDRESS = "0xa1e72a2fe3906a18bed25e17e370b3588354d347";
 
 let SmartContractInfo = {    
     ABI,
