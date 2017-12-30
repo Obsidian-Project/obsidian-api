@@ -35,6 +35,25 @@ const ABI = [
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "recipient",
+				"type": "address"
+			}
+		],
+		"name": "transfer",
+		"outputs": [
+			{
+				"name": "result",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [],
 		"name": "numberOfProgramsDelivered",
@@ -263,6 +282,20 @@ const ABI = [
 	{
 		"constant": true,
 		"inputs": [],
+		"name": "balance",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
 		"name": "numberOfGroups",
 		"outputs": [
 			{
@@ -387,7 +420,7 @@ const ABI = [
 	}
 ];
 
-const ADDRESS = "0x6a8aa507ac3fce6cdf9f760df1d480b53e7e31c6";
+const ADDRESS = "0xa502246807e6f2758874acc8729873db3d5ce74d";
 
 let SmartContractInfo = {    
     ABI,
