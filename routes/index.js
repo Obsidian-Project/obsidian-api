@@ -78,10 +78,15 @@ const getProgramsInfo = () => {
                 let programsInfo = [];
                 for (let i = 1; i <= numberOfPrograms; i++) {
                     ObsidianSmartContract.programInfo(i, (error, result) => {
+                        debugger;
                         if(result[1].length > 10){ //TODO: hot fix for trash data inserted for testing events
                             programsInfo.push({
                                 id: i,
-                                ipfsHash: result[1]
+                                ipfsHash: result[1],
+                                delivered: result[0],
+                                costPerUnit: result[2],
+                                subsidyAmount: result[3],
+                                units: result[4]
                             });
                         }
                         if (i == numberOfPrograms) {
@@ -146,6 +151,11 @@ const getJsonFromIPFSBy = (programInfo) => {
             }
             result.programId = programInfo.id;
             result.ipfsHash = programInfo.ipfsHash;
+
+            result.delivered = programInfo.delivered;
+            result.costPerUnit = programInfo.costPerUnit;
+            result.subsidyAmount = programInfo.subsidyAmount;
+            result.units = programInfo.units;
             resolve(result);
         });
     });
