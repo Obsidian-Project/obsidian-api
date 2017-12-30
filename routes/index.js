@@ -37,10 +37,8 @@ router.post('/program', async (ctx) => {
 });
 
 
-router.get('/programinfo', async (ctx) => {
-    let programsInfo = await getProgramsInfo();
-    let programsResult = await getProgramsDetails(programsInfo);
-    ctx.body = await getProgramInformationForGovernment(programsResult);
+router.get('/programinfo', async (ctx) => {   
+    ctx.body = await getProgramInformationForGovernment();
 });
 
 router
@@ -54,25 +52,28 @@ router
         ctx.body = await getJsonFromIPFS(ctx.params.hash);
     });
 
-const getProgramInformationForGovernment = (programsResult) => {
+const getProgramInformationForGovernment = () => {
     return new Promise((resolve, reject) => {
-        let unitsArray = programsResult.map((item) => {
-            return item.units
-        });
-        let units = 0;
-        for(let i=0; i < unitsArray.length; i++){
-            units += unitsArray;
-        }
-        let response = {
-            numberOfPrograms: programsResult.length,
-            subsidiesDeliverd: programsResult.filter((item)=>{
-                return item.delivered == true;
-            }).length,
-            units: units
-        }
-        resolve(response);
+        return getProgramsInfo().then((programsInfo) => {
+            return getProgramsDetails(programsInfo).then((programsResult) => {
+                let unitsArray = programsResult.map((item) => {
+                    return item.units
+                });
+                let units = 0;
+                for(let i=0; i < unitsArray.length; i++){
+                    units += unitsArray[i].toNumber();
+                }
+                let response = {
+                    numberOfPrograms: programsResult.length,
+                    subsidiesDeliverd: programsResult.filter((item)=>{
+                        return item.delivered == true;
+                    }).length,
+                    units: units
+                }
+                resolve(response);
+            });
+        });       
     });
-
 }
 
 const getNumberOfPrograms = () => {
@@ -95,6 +96,22 @@ const getProgramsDetails = (programsInfo) => {
         });
     });
 }
+
+const getProgramInformation = (programId) => {
+    return new Promise((resolve, reject) => {
+        ObsidianSmartContract.programInfo(programId, (error, result) => {                     
+            let programInfo = {
+                id: programId,
+                ipfsHash: result[1],
+                delivered: result[0],
+                costPerUnit: result[2],
+                subsidyAmount: result[3],
+                units: result[4]
+            };
+            resolve(programInfo);            
+        });
+    });
+}
 const getProgramsInfo = () => {
     return new Promise((resolve, reject) => {
         return getNumberOfPrograms()
@@ -102,25 +119,15 @@ const getProgramsInfo = () => {
                 if (numberOfPrograms == 0) {
                     resolve([]);
                 }
-                let programsInfo = [];
-                for (let i = 1; i <= numberOfPrograms; i++) {
-                    ObsidianSmartContract.programInfo(i, (error, result) => {
-                        debugger;
-                        if(result[1].length > 10){ //TODO: hot fix for trash data inserted for testing events
-                            programsInfo.push({
-                                id: i,
-                                ipfsHash: result[1],
-                                delivered: result[0],
-                                costPerUnit: result[2],
-                                subsidyAmount: result[3],
-                                units: result[4]
-                            });
-                        }
-                        if (i == numberOfPrograms) {
-                            resolve(programsInfo);
-                        }
-                    });
-                }
+                let programsArray = [];
+                for (let i = 0; i < numberOfPrograms; i++) {
+                    programsArray.push(i+1);//to start program with 1
+                }             
+                var actions = programsArray.map(getProgramInformation);
+                var results = Promise.all(actions);
+                results.then(data => {                    
+                    resolve(data);                
+                });      
             });
     });
 }
