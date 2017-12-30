@@ -37,6 +37,12 @@ router.post('/program', async (ctx) => {
 });
 
 
+router.get('/programinfo', async (ctx) => {
+    let programsInfo = await getProgramsInfo();
+    let programsResult = await getProgramsDetails(programsInfo);
+    ctx.body = await getProgramInformationForGovernment(programsResult);
+});
+
 router
     .get(`${PROGRAMS_URL}`, async (ctx) => {
         let programsInfo = await getProgramsInfo();
@@ -47,6 +53,27 @@ router
     .get(`${PROGRAMS_URL}/:hash`, async (ctx) => {
         ctx.body = await getJsonFromIPFS(ctx.params.hash);
     });
+
+const getProgramInformationForGovernment = (programsResult) => {
+    return new Promise((resolve, reject) => {
+        let unitsArray = programsResult.map((item) => {
+            return item.units
+        });
+        let units = 0;
+        for(let i=0; i < unitsArray.length; i++){
+            units += unitsArray;
+        }
+        let response = {
+            numberOfPrograms: programsResult.length,
+            subsidiesDeliverd: programsResult.filter((item)=>{
+                return item.delivered == true;
+            }).length,
+            units: units
+        }
+        resolve(response);
+    });
+
+}
 
 const getNumberOfPrograms = () => {
     return new Promise((resolve, reject) => {
