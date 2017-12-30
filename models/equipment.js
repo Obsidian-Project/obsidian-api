@@ -47,7 +47,7 @@ const EquipmentSchema = new mongoose.Schema({
     required: true
   },
   landCoverage: {
-    type: number,
+    type: Number,
     required: true
   }
 });
