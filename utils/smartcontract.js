@@ -1,58 +1,27 @@
 const ABI = [
 	{
 		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "requestInfo",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "recipient",
-				"type": "address"
-			}
-		],
-		"name": "transfer",
-		"outputs": [
-			{
-				"name": "result",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
 		"inputs": [],
-		"name": "numberOfProgramsDelivered",
+		"name": "numberOfGroups",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "programs",
 		"outputs": [
 			{
 				"name": "",
@@ -165,6 +134,25 @@ const ABI = [
 		"constant": true,
 		"inputs": [
 			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "requestInfo",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
 				"name": "element",
 				"type": "uint256"
 			}
@@ -215,6 +203,20 @@ const ABI = [
 	},
 	{
 		"constant": true,
+		"inputs": [],
+		"name": "balance",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [
 			{
 				"name": "",
@@ -235,35 +237,7 @@ const ABI = [
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "balance",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "numberOfGroups",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "numberOfGroups",
+		"name": "numberOfProgramsDelivered",
 		"outputs": [
 			{
 				"name": "",
@@ -309,11 +283,11 @@ const ABI = [
 		"constant": false,
 		"inputs": [
 			{
-				"name": "ipfsHash",
-				"type": "string"
+				"name": "recipient",
+				"type": "address"
 			}
 		],
-		"name": "addProgram",
+		"name": "transfer",
 		"outputs": [
 			{
 				"name": "result",
@@ -328,11 +302,11 @@ const ABI = [
 		"constant": false,
 		"inputs": [
 			{
-				"name": "newGroupMembers",
-				"type": "address[]"
+				"name": "ipfsHash",
+				"type": "string"
 			}
 		],
-		"name": "registerGroup",
+		"name": "addProgram",
 		"outputs": [
 			{
 				"name": "result",
@@ -367,6 +341,25 @@ const ABI = [
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "newGroupMembers",
+				"type": "address[]"
+			}
+		],
+		"name": "registerGroup",
+		"outputs": [
+			{
+				"name": "result",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -384,12 +377,6 @@ const ABI = [
 		"type": "event"
 	},
 	{
-		"inputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -405,6 +392,12 @@ const ABI = [
 		],
 		"name": "newMemberAdded",
 		"type": "event"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
 	},
 	{
 		"anonymous": false,
