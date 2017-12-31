@@ -42,9 +42,10 @@ router.get('/programinfo', async (ctx) => {
 });
 
 router.get('/myequipments', async (ctx) => {   
+    let programsInfo = await getProgramsInfo();
     let equipments = await getProgramsDetails(programsInfo);
     let filteredEquipments = equipments.filter((item) => {
-        item.delivered == true;
+        return item.delivered == true;
     })
     ctx.body = filteredEquipments;
 });
