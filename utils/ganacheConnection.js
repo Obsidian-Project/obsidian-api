@@ -9,12 +9,11 @@ const web3Instance = new Web3(new Web3.providers.HttpProvider(ETHEREUM_PROVIDER)
 const contractABI = web3Instance.eth.contract(SMART_CONTRACT_ABI);
 const ObsidianContract = contractABI.at(SMART_CONTRACT_ADDRESS);
 
-const setupEthereumAccounts = () => {
-    const memberAccounts = [MEMBER_ACCOUNT_1, MEMBER_ACCOUNT_2];
+const setupGanacheAccounts = (accounts) => {    
     return new Promise((resolve, reject) => {
-        addMembers(memberAccounts)
+        addMembers(accounts)
             .then(() => {
-                registerGroup(memberAccounts).then((result) => {
+                registerGroup(accounts).then((result) => {
                     resolve(true);
                 })
             }).catch((error) => {
@@ -94,4 +93,4 @@ const pollingLoop = (txHash, response, pendingCB, successCB) => {
     }, 1000);
 }
 
-module.exports = setupEthereumAccounts;
+module.exports = setupGanacheAccounts;

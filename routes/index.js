@@ -10,8 +10,8 @@ const Readable = require('stream').Readable
 const IPFS = require('ipfs-mini');
 const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 
-const azure = require('azure');
-const notificationHubService = azure.createNotificationHubService('obsidian-hub', 'Endpoint=sb://obsidian.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=XIia7HhtL0aVnnseg4HJW7abu+aROecKWb+nej2hnrc=');
+// const azure = require('azure');
+// const notificationHubService = azure.createNotificationHubService('obsidian-hub', 'Endpoint=sb://obsidian.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=XIia7HhtL0aVnnseg4HJW7abu+aROecKWb+nej2hnrc=');
 const PROGRAMS_URL = "/programs";
 
 const ETHEREUM_PROVIDER = "http://52.178.92.72:8545";
@@ -19,6 +19,7 @@ const web3Instance = new Web3(new Web3.providers.HttpProvider(ETHEREUM_PROVIDER)
 
 const contractABI = web3Instance.eth.contract(SMART_CONTRACT_ABI);
 const ObsidianSmartContract = contractABI.at(SMART_CONTRACT_ADDRESS);
+const queries = require('../database/queries');
 
 router.get('/', async (ctx) => {
     ctx.body = 'API Working!';
@@ -48,6 +49,11 @@ router.get('/myequipments', async (ctx) => {
         return item.delivered == true;
     })
     ctx.body = filteredEquipments;
+});
+
+router.get('/accountInfo', async (ctx) => {
+    let profileInfo = await queries.getAvailableProfile();     
+    ctx.body = profileInfo;
 });
 
 router
