@@ -41,6 +41,14 @@ router.get('/programinfo', async (ctx) => {
     ctx.body = await getProgramInformationForGovernment();
 });
 
+router.get('/myequipments', async (ctx) => {   
+    let equipments = await getProgramsDetails(programsInfo);
+    let filteredEquipments = equipments.filter((item) => {
+        item.delivered == true;
+    })
+    ctx.body = filteredEquipments;
+});
+
 router
     .get(`${PROGRAMS_URL}`, async (ctx) => {
         let programsInfo = await getProgramsInfo();
