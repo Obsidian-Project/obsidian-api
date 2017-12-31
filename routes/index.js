@@ -47,7 +47,9 @@ router.get('/myequipments', async (ctx) => {
     let filteredEquipments = equipments.filter((item) => {
         return item.delivered == true;
     })
-    ctx.body = filteredEquipments;
+    ctx.body = filteredEquipments.map((item) =>{
+        return item.selectedEquipment;
+    });
 });
 
 router
