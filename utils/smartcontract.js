@@ -522,8 +522,17 @@ const ABI = [
 
 const ADDRESS = "0xda76a990a63a3a68bb86a4308cf69032affdfa5e";
 
+const MEMBER_ACCOUNT_1 = "0xb9a37f56dc517858c5fd2a249f44fc449113491d";
+
+const MEMBER_ACCOUNT_2 = "0xcfc1c755ebfccadf2bffdcb129d7656760bd0681";
+
+const DEMO_ADDRESS = "0x6884ff0de92e3328173ab12b722c0f2d727b1677";
+
 let SmartContractInfo = {    
     ABI,
-    ADDRESS
+	ADDRESS,
+	MEMBER_ACCOUNT_1,
+	MEMBER_ACCOUNT_2,
+	DEMO_ADDRESS
 }
 module.exports = SmartContractInfo;

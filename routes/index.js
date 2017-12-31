@@ -4,6 +4,7 @@ const router = new Router();
 
 const SMART_CONTRACT_ABI = require('../utils/smartcontract').ABI;
 const SMART_CONTRACT_ADDRESS = require('../utils/smartcontract').ADDRESS;
+const DEMO_ADDRESS = require('../utils/smartcontract').DEMO_ADDRESS;
 
 const Readable = require('stream').Readable
 const IPFS = require('ipfs-mini');
@@ -15,7 +16,6 @@ const PROGRAMS_URL = "/programs";
 
 const ETHEREUM_PROVIDER = "http://52.178.92.72:8545";
 const web3Instance = new Web3(new Web3.providers.HttpProvider(ETHEREUM_PROVIDER));
-const DEMO_ADDRESS = "0x101a4b7af0523bc8539d353eec163ac207ad680b";
 
 const contractABI = web3Instance.eth.contract(SMART_CONTRACT_ABI);
 const ObsidianSmartContract = contractABI.at(SMART_CONTRACT_ADDRESS);
@@ -47,9 +47,7 @@ router.get('/myequipments', async (ctx) => {
     let filteredEquipments = equipments.filter((item) => {
         return item.delivered == true;
     })
-    ctx.body = filteredEquipments.map((item) =>{
-        return item.selectedEquipment;
-    });
+    ctx.body = filteredEquipments;
 });
 
 router
