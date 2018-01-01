@@ -520,19 +520,13 @@ const ABI = [
 	}
 ];
 
-const ADDRESS = "0x65e0e57005bfa880fa03d16d89bba7dccefdbffb";
+const ADDRESS = "0x5aa8fdc4e1f819c87c11d23a9be679b30d945bbe";
 
-const MEMBER_ACCOUNT_1 = "0xb9a37f56dc517858c5fd2a249f44fc449113491d";
-
-const MEMBER_ACCOUNT_2 = "0xcfc1c755ebfccadf2bffdcb129d7656760bd0681";
-
-const DEMO_ADDRESS = "0x6884ff0de92e3328173ab12b722c0f2d727b1677";
+const DEMO_ADDRESS = "0xb9a37f56dc517858c5fd2a249f44fc449113491d";
 
 let SmartContractInfo = {    
     ABI,
 	ADDRESS,
-	MEMBER_ACCOUNT_1,
-	MEMBER_ACCOUNT_2,
 	DEMO_ADDRESS
 }
 module.exports = SmartContractInfo;

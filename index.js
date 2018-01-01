@@ -10,6 +10,7 @@ const setupGanacheAccounts = require('./utils/ganacheConnection');
 const setupProfiles = require('./utils/profiles');
 const queries = require('./database/queries');
 const PORT = process.env.PORT || 4000;
+const DEMO_ADDRESS = require('./utils/smartcontract').DEMO_ADDRESS;
 
 const app = new Koa();
 app.use(cors());

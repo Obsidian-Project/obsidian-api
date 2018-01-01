@@ -2,6 +2,7 @@ const Web3 = require('web3');
 const ETHEREUM_PROVIDER = "http://52.178.92.72:8545";
 const web3Instance = new Web3(new Web3.providers.HttpProvider(ETHEREUM_PROVIDER));
 const queries = require('../database/queries');
+const DEMO_ADDRESS = require('./smartcontract').DEMO_ADDRESS;
 
 const setupProfiles = () => {   
     let images = ["http://res.cloudinary.com/key-solutions/image/upload/v1514717276/Hackathon/tech-nation/obsidian/farmer1.png",
@@ -9,7 +10,10 @@ const setupProfiles = () => {
                   "http://res.cloudinary.com/key-solutions/image/upload/v1514717276/Hackathon/tech-nation/obsidian/farmer2.png"];
 
     let accounts = web3Instance.eth.accounts;
-    let onlyThreeAccounts = accounts.filter((item,index) => {
+    let accountFiltered = accounts.filter((item,index) => {
+        return item != DEMO_ADDRESS;//only 3
+    });
+    let onlyThreeAccounts = accountFiltered.filter((item,index) => {
         return index < 3;//only 3
     });
 
