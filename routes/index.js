@@ -51,8 +51,8 @@ router.get('/myequipments', async (ctx) => {
     ctx.body = filteredEquipments;
 });
 
-router.get('/accountInfo', async (ctx) => {
-    let profileInfo = await queries.getAvailableProfile();     
+router.get('/accountInfo', async (ctx) => {  
+    let profileInfo = await queries.getAvailableProfile(ctx.query.isweb);     
     ctx.body = profileInfo;
 });
 
@@ -114,7 +114,7 @@ const getProgramsDetails = (programsInfo) => {
 
 const getProgramInformation = (programId) => {
     return new Promise((resolve, reject) => {
-        ObsidianSmartContract.programInfo(programId, (error, result) => {                     
+        ObsidianSmartContract.programInfo(programId, (error, result) => {                            
             let programInfo = {
                 id: programId,
                 ipfsHash: result[1],

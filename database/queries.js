@@ -14,7 +14,7 @@ module.exports = {
         });
     },
 
-    getEquipmentsByType: function(type){
+    getEquipmentsByType: function (type) {
         return new Promise((resolve, reject) => {
             Equipments.find({ type: type }, function (error, docs) {
                 if (error) {
@@ -26,7 +26,7 @@ module.exports = {
         });
     },
 
-    saveProfiles: function(profileInfo){
+    saveProfiles: function (profileInfo) {
         return new Promise((resolve, reject) => {
             Profile.create(profileInfo, function (error, docs) {
                 if (error) {
@@ -50,16 +50,25 @@ module.exports = {
         });
     },
 
-    getAvailableProfile: function(){
+    getAvailableProfile: function (isweb) {
         return new Promise((resolve, reject) => {
             Profile.findOne({ assigned: false }, function (error, doc) {
                 if (error) {
                     reject(error);
                     return;
                 }
+                if (isweb) {
+                    resolve(doc);
+                    return;
+                }
                 doc.assigned = true;
-                doc.save();
-                resolve(doc);
+                doc.save(function (err, updated) {
+                    if (err) {
+                        reject(error);
+                        return;
+                    }
+                    resolve(updated);
+                });
             });
         });
     }
