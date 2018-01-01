@@ -52,6 +52,10 @@ router.get('/myequipments', async (ctx) => {
 });
 
 router.get('/accountInfo', async (ctx) => {  
+    if(ctx.query.isweb){
+        ctx.body = { account: DEMO_ADDRESS };
+        return;
+    }
     let profileInfo = await queries.getAvailableProfile(ctx.query.isweb);     
     ctx.body = profileInfo;
 });
