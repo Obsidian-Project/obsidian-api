@@ -5,9 +5,13 @@ const ABI = [
 			{
 				"name": "",
 				"type": "address"
+			},
+			{
+				"name": "",
+				"type": "uint256"
 			}
 		],
-		"name": "membersGroup",
+		"name": "membersPrograms",
 		"outputs": [
 			{
 				"name": "",
@@ -35,7 +39,7 @@ const ABI = [
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "numberOfRequest",
+		"name": "numberOfProgramsRequest",
 		"outputs": [
 			{
 				"name": "",
@@ -129,6 +133,34 @@ const ABI = [
 	},
 	{
 		"constant": true,
+		"inputs": [],
+		"name": "numberOfEquipmentsRequest",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "numberOfEquipmentsDelivered",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [
 			{
 				"name": "element",
@@ -160,11 +192,11 @@ const ABI = [
 				"type": "uint256"
 			}
 		],
-		"name": "requestInfo",
+		"name": "programs",
 		"outputs": [
 			{
 				"name": "",
-				"type": "address"
+				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -206,7 +238,7 @@ const ABI = [
 				"type": "uint256"
 			}
 		],
-		"name": "programs",
+		"name": "equipments",
 		"outputs": [
 			{
 				"name": "",
@@ -267,7 +299,45 @@ const ABI = [
 				"type": "uint256"
 			}
 		],
-		"name": "membersPrograms",
+		"name": "membersEquipments",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "requestInfo",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "membersGroup",
 		"outputs": [
 			{
 				"name": "",
@@ -311,16 +381,16 @@ const ABI = [
 		"inputs": [
 			{
 				"indexed": false,
-				"name": "memberAdress",
-				"type": "address"
+				"name": "programId",
+				"type": "uint256"
 			},
 			{
 				"indexed": false,
-				"name": "isRegistered",
-				"type": "bool"
+				"name": "beneficiary",
+				"type": "address"
 			}
 		],
-		"name": "newMemberAdded",
+		"name": "newSubsidyRequested",
 		"type": "event"
 	},
 	{
@@ -358,11 +428,11 @@ const ABI = [
 		"constant": false,
 		"inputs": [
 			{
-				"name": "programId",
-				"type": "uint256"
+				"name": "newGroupMembers",
+				"type": "address[]"
 			}
 		],
-		"name": "transfer",
+		"name": "registerGroup",
 		"outputs": [
 			{
 				"name": "result",
@@ -372,6 +442,48 @@ const ABI = [
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "equipmentId",
+				"type": "uint256"
+			}
+		],
+		"name": "transferEquipment",
+		"outputs": [
+			{
+				"name": "result",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "equipmentId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "beneficiary",
+				"type": "address"
+			}
+		],
+		"name": "newEquipmentRequested",
+		"type": "event"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
 	},
 	{
 		"constant": false,
@@ -416,7 +528,7 @@ const ABI = [
 				"type": "address"
 			}
 		],
-		"name": "requestEquipment",
+		"name": "requestSubsidy",
 		"outputs": [
 			{
 				"name": "result",
@@ -431,11 +543,68 @@ const ABI = [
 		"constant": false,
 		"inputs": [
 			{
-				"name": "newGroupMembers",
-				"type": "address[]"
+				"name": "equipmentId",
+				"type": "uint256"
+			},
+			{
+				"name": "requester",
+				"type": "address"
 			}
 		],
-		"name": "registerGroup",
+		"name": "requestEquipment",
+		"outputs": [
+			{
+				"name": "result",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "equipmentId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "recipient",
+				"type": "address"
+			}
+		],
+		"name": "newEquipmentTransferred",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "programId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "recipient",
+				"type": "address"
+			}
+		],
+		"name": "newSubsidyTransferred",
+		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "programId",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
 		"outputs": [
 			{
 				"name": "result",
@@ -483,50 +652,27 @@ const ABI = [
 		"inputs": [
 			{
 				"indexed": false,
-				"name": "recipient",
+				"name": "memberAdress",
 				"type": "address"
 			},
 			{
 				"indexed": false,
-				"name": "equipmentId",
-				"type": "uint256"
+				"name": "isRegistered",
+				"type": "bool"
 			}
 		],
-		"name": "newEquipmentTransferred",
+		"name": "newMemberAdded",
 		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "programId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "beneficiary",
-				"type": "address"
-			}
-		],
-		"name": "newEquipmentRequested",
-		"type": "event"
-	},
-	{
-		"inputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
 	}
 ];
 
-const ADDRESS = "0x9d203caeed510a7de5860188f07f4da21167a66a";
+const SMARTCONTRACT_ADDRESS = "0xcde69441d3715bf158116d928c411232575dd9d8";
 
 const DEMO_ADDRESS = "0xb9a37f56dc517858c5fd2a249f44fc449113491d";
 
 let SmartContractInfo = {    
     ABI,
-	ADDRESS,
+	ADDRESS: SMARTCONTRACT_ADDRESS,
 	DEMO_ADDRESS
 }
 module.exports = SmartContractInfo;
