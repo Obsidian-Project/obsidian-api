@@ -520,7 +520,7 @@ const ABI = [
 	}
 ];
 
-const ADDRESS = "0xda76a990a63a3a68bb86a4308cf69032affdfa5e";
+const ADDRESS = "0x65e0e57005bfa880fa03d16d89bba7dccefdbffb";
 
 const MEMBER_ACCOUNT_1 = "0xb9a37f56dc517858c5fd2a249f44fc449113491d";
 
