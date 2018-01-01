@@ -520,7 +520,7 @@ const ABI = [
 	}
 ];
 
-const ADDRESS = "0x5aa8fdc4e1f819c87c11d23a9be679b30d945bbe";
+const ADDRESS = "0x9d203caeed510a7de5860188f07f4da21167a66a";
 
 const DEMO_ADDRESS = "0xb9a37f56dc517858c5fd2a249f44fc449113491d";
 
