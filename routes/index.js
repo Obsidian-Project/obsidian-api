@@ -43,13 +43,6 @@ router.get('/programinfo', async (ctx) => {
 });
 
 router.get('/myequipments', async (ctx) => {
-    //get my list of equipments, the ones in smart contract
-    //call get equipment, with actions all
-    // let programsInfo = await getProgramsInfo();
-    // let equipments = await getProgramsDetails(programsInfo);
-    // let filteredEquipments = equipments.filter((item) => {
-    //     return item.delivered == true;
-    // })
     let result = await getMyEquipmentsInformation();
     ctx.body = result;
 });
@@ -59,8 +52,7 @@ router.get('/accountInfo', async (ctx) => {
         ctx.body = { account: DEMO_ADDRESS };
         return;
     }
-    let profileInfo = await queries.getAvailableProfile(ctx.query.isweb);
-    ctx.body = profileInfo;
+    ctx.body = await queries.getAvailableProfile(ctx.query.isweb);
 });
 
 router
@@ -104,17 +96,17 @@ const getProgramInformationForGovernment = () => {
 
 const getMyEquipmentsInformation = () => {
     return new Promise((resolve, reject) => {
-        getNumberOfEquipmentsTransferrred()
+        return getNumberOfEquipmentsTransferrred()
             .then((equipmentIndexes) => {
 
                 let getEquipmentId = equipmentIndexes.map(getEquipmentsTransferred);
                 let equipmentIdsPromise = Promise.all(getEquipmentId);
-                equipmentIdsPromise.then((equipmentIds) => {
+                return equipmentIdsPromise.then((equipmentIds) => {
                     let actions = equipmentIds.map(getEquipmentsInformation);
                     let results = Promise.all(actions);
-                    results.then((equipmentsResult) => {
-                        getProgramsInfo().then((programsInfo) => {
-                            getProgramsDetails(programsInfo).then((equipmentsInPrograms) => {
+                    return results.then((equipmentsResult) => {
+                        return getProgramsInfo().then((programsInfo) => {
+                            return getProgramsDetails(programsInfo).then((equipmentsInPrograms) => {
                                 let programsDelivered = equipmentsInPrograms.filter((item) => {
                                     return item.delivered == true;
                                 });

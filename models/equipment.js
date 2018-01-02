@@ -49,6 +49,14 @@ const EquipmentSchema = new mongoose.Schema({
   landCoverage: {
     type: Number,
     required: true
+  }, 
+  subsidyAmount: {
+    type: Number,
+    required: false
+  },
+  hasSubsidy: {
+    type: Boolean,
+    required: false
   }
 });
 

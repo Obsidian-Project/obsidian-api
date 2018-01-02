@@ -61,14 +61,15 @@ module.exports = {
                     resolve(doc);
                     return;
                 }
-                doc.assigned = true;
-                doc.save(function (err, updated) {
-                    if (err) {
-                        reject(error);
-                        return;
-                    }
-                    resolve(updated);
-                });
+                resolve(doc);
+                // doc.assigned = true;
+                // doc.save(function (err, updated) {
+                //     if (err) {
+                //         reject(error);
+                //         return;
+                //     }
+                //     resolve(updated);
+                // });
             });
         });
     }
