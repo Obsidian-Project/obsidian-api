@@ -38,25 +38,28 @@ router.post('/program', async (ctx) => {
 });
 
 
-router.get('/programinfo', async (ctx) => {   
+router.get('/programinfo', async (ctx) => {
     ctx.body = await getProgramInformationForGovernment();
 });
 
-router.get('/myequipments', async (ctx) => {   
-    let programsInfo = await getProgramsInfo();
-    let equipments = await getProgramsDetails(programsInfo);
-    let filteredEquipments = equipments.filter((item) => {
-        return item.delivered == true;
-    })
-    ctx.body = filteredEquipments;
+router.get('/myequipments', async (ctx) => {
+    //get my list of equipments, the ones in smart contract
+    //call get equipment, with actions all
+    // let programsInfo = await getProgramsInfo();
+    // let equipments = await getProgramsDetails(programsInfo);
+    // let filteredEquipments = equipments.filter((item) => {
+    //     return item.delivered == true;
+    // })
+    let result = await getMyEquipmentsInformation();
+    ctx.body = result;
 });
 
-router.get('/accountInfo', async (ctx) => {  
-    if(ctx.query.isweb){
+router.get('/accountInfo', async (ctx) => {
+    if (ctx.query.isweb) {
         ctx.body = { account: DEMO_ADDRESS };
         return;
     }
-    let profileInfo = await queries.getAvailableProfile(ctx.query.isweb);     
+    let profileInfo = await queries.getAvailableProfile(ctx.query.isweb);
     ctx.body = profileInfo;
 });
 
@@ -79,20 +82,91 @@ const getProgramInformationForGovernment = () => {
                     return item.units
                 });
                 let units = 0;
-                for(let i=0; i < unitsArray.length; i++){
+                for (let i = 0; i < unitsArray.length; i++) {
                     units += unitsArray[i].toNumber();
                 }
                 let response = {
                     numberOfPrograms: programsResult.length,
-                    subsidiesDeliverd: programsResult.filter((item)=>{
+                    subsidiesDeliverd: programsResult.filter((item) => {
                         return item.delivered == true;
                     }).length,
                     units: units
                 }
                 resolve(response);
             });
-        });       
+        });
     });
+}
+//obtener todos los equipos transferidos
+//obtener todos los programas liberados
+//filter los equipos liberados con los equipos dentro de los programas liberados
+//o poner la informacion en los equipos, con la informacion de los programas
+
+const getMyEquipmentsInformation = () => {
+    return new Promise((resolve, reject) => {
+        getNumberOfEquipmentsTransferrred()
+            .then((equipmentIndexes) => {
+
+                let getEquipmentId = equipmentIndexes.map(getEquipmentsTransferred);
+                let equipmentIdsPromise = Promise.all(getEquipmentId);
+                equipmentIdsPromise.then((equipmentIds) => {
+                    let actions = equipmentIds.map(getEquipmentsInformation);
+                    let results = Promise.all(actions);
+                    results.then((equipmentsResult) => {
+                        getProgramsInfo().then((programsInfo) => {
+                            getProgramsDetails(programsInfo).then((equipmentsInPrograms) => {
+                                let programsDelivered = equipmentsInPrograms.filter((item) => {
+                                    return item.delivered == true;
+                                });
+
+                                let newEquipmentsResult = equipmentsResult.map((item) => {
+                                    for (let i = 0; i < programsDelivered.length; i++) {
+                                        if (item.equipmentId == programsDelivered[i].selectedEquipment.equipmentId) {
+                                            item.hasSubsidy = true;
+                                            item.subsidyAmount = programsDelivered[i].subsidyAmount.toNumber();
+                                        }
+                                    }
+                                    return item;
+                                });
+                                resolve(newEquipmentsResult);
+                            });
+                        });
+                    });
+                })
+            });
+    });
+}
+
+const getEquipmentsTransferred = (id) => {
+    return new Promise((resolve, reject) => {
+        ObsidianSmartContract.equipmentsTransferred(id, (error, result) => {
+            resolve(result.toNumber());
+        });
+    })
+}
+const getNumberOfEquipmentsTransferrred = () => {
+    return new Promise((resolve, reject) => {
+        ObsidianSmartContract.numberOfEquipmentsDelivered((error, result) => {
+
+            let numberOfEquipments = result.toNumber();
+            if (numberOfEquipments == 0) {
+                resolve([]);
+            }
+            let equipmentsArray = [];
+            for (let i = 1; i <= numberOfEquipments; i++) {
+                equipmentsArray.push(i);
+            }
+            resolve(equipmentsArray);
+        });
+    })
+}
+
+const getEquipmentsInformation = (equipmentId) => {
+    return new Promise((resolve, reject) => {
+        queries.getEquipmentById(equipmentId).then((equipment) => {
+            resolve(equipment[0]);
+        });
+    })
 }
 
 const getNumberOfPrograms = () => {
@@ -118,7 +192,7 @@ const getProgramsDetails = (programsInfo) => {
 
 const getProgramInformation = (programId) => {
     return new Promise((resolve, reject) => {
-        ObsidianSmartContract.programInfo(programId, (error, result) => {                            
+        ObsidianSmartContract.programInfo(programId, (error, result) => {
             let programInfo = {
                 id: programId,
                 ipfsHash: result[1],
@@ -127,26 +201,26 @@ const getProgramInformation = (programId) => {
                 subsidyAmount: result[3],
                 units: result[4]
             };
-            resolve(programInfo);            
+            resolve(programInfo);
         });
     });
 }
 const getProgramsInfo = () => {
     return new Promise((resolve, reject) => {
         return getNumberOfPrograms()
-            .then((numberOfPrograms) => {                
+            .then((numberOfPrograms) => {
                 if (numberOfPrograms == 0) {
                     resolve([]);
                 }
                 let programsArray = [];
                 for (let i = 0; i < numberOfPrograms; i++) {
-                    programsArray.push(i+1);//to start program with 1
-                }             
+                    programsArray.push(i + 1);//to start program with 1
+                }
                 var actions = programsArray.map(getProgramInformation);
                 var results = Promise.all(actions);
-                results.then(data => {                    
-                    resolve(data);                
-                });      
+                results.then(data => {
+                    resolve(data);
+                });
             });
     });
 }
