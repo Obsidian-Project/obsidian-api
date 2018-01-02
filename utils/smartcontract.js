@@ -708,7 +708,7 @@ const ABI = [
 	}
 ];
 
-const SMARTCONTRACT_ADDRESS = "0xdd7063d91cb324d0cadc42eac2c3eb77b9ee1093";
+const SMARTCONTRACT_ADDRESS = "0xac2679bf82f936f1781e275a531a636cf4324f5a";
 
 const DEMO_ADDRESS = "0x457fe437feaf207bc2cd0499b35ea3aedd4801f7";
 
