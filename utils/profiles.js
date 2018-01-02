@@ -14,7 +14,7 @@ const setupProfiles = () => {
         return item != DEMO_ADDRESS;//only 3
     });
     let onlyThreeAccounts = accountFiltered.filter((item,index) => {
-        return index < 3;//only 3
+        return index < 2;//only 2
     });
 
     let names = ["Pedro Alcala", "Jose Lopez", "Juan Blanco"];
