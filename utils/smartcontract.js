@@ -4,18 +4,14 @@ const ABI = [
 		"inputs": [
 			{
 				"name": "",
-				"type": "address"
-			},
-			{
-				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "membersPrograms",
+		"name": "membersRegistered",
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "address"
 			}
 		],
 		"payable": false,
@@ -95,6 +91,20 @@ const ABI = [
 	},
 	{
 		"constant": true,
+		"inputs": [],
+		"name": "numberOfProgramsDelivered",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [
 			{
 				"name": "",
@@ -106,20 +116,6 @@ const ABI = [
 			{
 				"name": "",
 				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "numberOfPrograms",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"payable": false,
@@ -187,25 +183,6 @@ const ABI = [
 		"inputs": [
 			{
 				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "equipmentsTransferred",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
 				"type": "address"
 			}
 		],
@@ -236,11 +213,11 @@ const ABI = [
 				"type": "uint256"
 			}
 		],
-		"name": "equipments",
+		"name": "equipmentsTransferred",
 		"outputs": [
 			{
 				"name": "",
-				"type": "bool"
+				"type": "uint256"
 			}
 		],
 		"payable": false,
@@ -274,11 +251,11 @@ const ABI = [
 				"type": "uint256"
 			}
 		],
-		"name": "requestInfo",
+		"name": "equipments",
 		"outputs": [
 			{
 				"name": "",
-				"type": "address"
+				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -298,6 +275,44 @@ const ABI = [
 			}
 		],
 		"name": "membersEquipments",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "requestInfo",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "membersGroup",
 		"outputs": [
 			{
 				"name": "",
@@ -333,9 +348,13 @@ const ABI = [
 			{
 				"name": "",
 				"type": "address"
+			},
+			{
+				"name": "",
+				"type": "uint256"
 			}
 		],
-		"name": "membersGroup",
+		"name": "membersPrograms",
 		"outputs": [
 			{
 				"name": "",
@@ -363,7 +382,7 @@ const ABI = [
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "numberOfProgramsDelivered",
+		"name": "numberOfPrograms",
 		"outputs": [
 			{
 				"name": "",
@@ -468,11 +487,11 @@ const ABI = [
 			},
 			{
 				"indexed": false,
-				"name": "recipient",
+				"name": "beneficiary",
 				"type": "address"
 			}
 		],
-		"name": "newEquipmentTransferred",
+		"name": "newEquipmentRequested",
 		"type": "event"
 	},
 	{
@@ -631,11 +650,11 @@ const ABI = [
 			},
 			{
 				"indexed": false,
-				"name": "beneficiary",
+				"name": "recipient",
 				"type": "address"
 			}
 		],
-		"name": "newEquipmentRequested",
+		"name": "newEquipmentTransferred",
 		"type": "event"
 	},
 	{
@@ -708,7 +727,7 @@ const ABI = [
 	}
 ];
 
-const SMARTCONTRACT_ADDRESS = "0xd597683f538796ef68522bf6f649e1cf063e6ab0";
+const SMARTCONTRACT_ADDRESS = "0xfd7f9d3c54818ec733f77e62c4217d7312450a02";
 
 const DEMO_ADDRESS = "0x457fe437feaf207bc2cd0499b35ea3aedd4801f7";
 
