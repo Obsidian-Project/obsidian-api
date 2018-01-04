@@ -14,7 +14,8 @@ const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
 // const notificationHubService = azure.createNotificationHubService('obsidian-hub', 'Endpoint=sb://obsidian.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=XIia7HhtL0aVnnseg4HJW7abu+aROecKWb+nej2hnrc=');
 const PROGRAMS_URL = "/programs";
 
-const ETHEREUM_PROVIDER = "http://52.178.92.72:8545";
+const ETHEREUM_PROVIDER = "http://obsidian-node.westeurope.cloudapp.azure.com:8545";
+
 const web3Instance = new Web3(new Web3.providers.HttpProvider(ETHEREUM_PROVIDER));
 
 const contractABI = web3Instance.eth.contract(SMART_CONTRACT_ABI);
