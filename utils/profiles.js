@@ -17,7 +17,7 @@ const setupProfiles = () => {
         return index < 2;//only 2
     });
 
-    let names = ["Pedro Alcala", "Jose Lopez", "Juan Blanco"];
+    let names = ["Pedro Martinez", "Jose Lopez", "Juan Blanco"];
    
     let profiles = [];
     for(let i = 0; i < onlyThreeAccounts.length; i++){
